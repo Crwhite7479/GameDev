@@ -15,7 +15,20 @@ public class PlayerScript : MonoBehaviour
     float currentVelocity;
 
     public Vector3 direction;
-    public bool is_Running;
+
+    //Jump variables
+    [SerializeField]
+    bool is_Grounded;
+    [SerializeField]
+    float groundCheckDistance;
+    [SerializeField]
+    LayerMask groundLayerMask;
+    [SerializeField]
+    float gravity;
+    [SerializeField]
+    float jumpHeight;
+
+    Vector3 velocity;
     void Start()
     {
         playerController = GetComponent<CharacterController>();
@@ -28,6 +41,20 @@ public class PlayerScript : MonoBehaviour
         float forwardmove = Input.GetAxis("Vertical");
         direction = new Vector3(horizontalmove, 0, forwardmove);
 
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (is_Grounded)
+            {
+                velocity.y = jumpHeight;
+            }
+            
+        }
+
+        is_Grounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundLayerMask);
+        if (!is_Grounded)
+        {
+            velocity.y = -0.005f;
+        }
 
         //Getting the angle from x and z values
         float moveAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
@@ -43,6 +70,9 @@ public class PlayerScript : MonoBehaviour
         {
             playerController.Move(moveDir.normalized * Time.deltaTime * moveSpeed);
         }
+
+        velocity.y += gravity * Time.deltaTime;
+        playerController.Move(velocity);
     }
 
 }

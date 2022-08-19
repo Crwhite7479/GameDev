@@ -23,7 +23,7 @@ public class SphereRotation : MonoBehaviour
             rotX += playerScript.moveDir.z;
             rotZ -= playerScript.moveDir.x;
 
-            Debug.Log(playerScript.direction);
+            
             transform.rotation = Quaternion.Euler(rotX, 0, rotZ);
         
     }
