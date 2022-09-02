@@ -64,8 +64,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232bf5b09c0ba064398b026eb9eb855c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gold_Coins: 0
+  Apples: 0
+  Keys_Collected: 0
   camera: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
+  moveSpeed: 6.5
   direction: {x: 0, y: 0, z: 0}
   is_Grounded: 0
   groundCheckDistance: 1

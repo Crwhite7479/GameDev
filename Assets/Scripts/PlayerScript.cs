@@ -1,17 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     CharacterController playerController;
+
+    public int Gold_Coins;
+    public int Apples;
+    public int Lemons;
+    public int Mushrooms;
+    public int Bananas;
+    public int Keys_Collected;
 
     [SerializeField]
     Transform camera;
 
     public Vector3 moveDir;
 
-    float moveSpeed = 5.5f;
+    [SerializeField]
+    float moveSpeed = 6.5f;
+
     float currentVelocity;
 
     public Vector3 direction;
@@ -53,7 +63,7 @@ public class PlayerScript : MonoBehaviour
         is_Grounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundLayerMask);
         if (!is_Grounded)
         {
-            velocity.y = -0.005f;
+            velocity.y = -0.0005f;
         }
 
         //Getting the angle from x and z values
@@ -68,11 +78,63 @@ public class PlayerScript : MonoBehaviour
 
         if (direction.magnitude > 0)
         {
-            playerController.Move(moveDir.normalized * Time.deltaTime * moveSpeed);
+            playerController.Move(moveSpeed * Time.deltaTime * moveDir.normalized);
         }
 
         velocity.y += gravity * Time.deltaTime;
         playerController.Move(velocity);
+
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Next_Level")
+        {
+            Debug.Log("Level Complete");
+            int newScene = SceneManager.GetActiveScene().buildIndex + 1;
+            //PlayerPrefs.SetInt("Coins", Coinscollected);
+            SceneManager.LoadScene(newScene);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PirateCoin"))
+        {
+            Gold_Coins++;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Apple_Tag"))
+        {
+            Apples++;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Key_Tag"))
+        {
+            Keys_Collected++;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Lemon_Tag"))
+        {
+            Lemons++;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Shroom_Tag"))
+        {
+            Mushrooms++;
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Banana_Tag"))
+        {
+            Bananas++;
+            Destroy(other.gameObject);
+        }
+
+
+    }
 }

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PirateCoin
+  - Apple_Tag
+  - Key_Tag
+  - Lemon_Tag
+  - Shroom_Tag
+  - Banana_Tag
+  - Next_Level
   layers:
   - Default
   - TransparentFX
