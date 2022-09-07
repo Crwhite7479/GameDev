@@ -7,6 +7,7 @@ public class MainMenuScript : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+        PlayerPrefs.SetInt("total_score", 0);
         PlayerPrefs.SetInt("Gold_Coins", 0);
         PlayerPrefs.SetInt("Apples", 0);
         PlayerPrefs.SetInt("Lemons", 0);

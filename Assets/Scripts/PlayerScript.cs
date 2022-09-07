@@ -14,6 +14,9 @@ public class PlayerScript : MonoBehaviour
     public int Bananas;
     public int Keys_Collected;
 
+    public int total_score;
+    public int level_score;
+
     [SerializeField]
     Transform camera;
 
@@ -86,17 +89,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
 
-        if (collision.gameObject.tag == "Next_Level")
-        {
-            Debug.Log("Level Complete");
-            int newScene = SceneManager.GetActiveScene().buildIndex + 1;
-            //PlayerPrefs.SetInt("Coins", Coinscollected);
-            SceneManager.LoadScene(newScene);
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PirateCoin"))
@@ -135,6 +128,47 @@ public class PlayerScript : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        else if (other.CompareTag("Next_Level"))
+        {
+            if (Keys_Collected > 0)
+            {
+                Debug.Log("Level Complete");
+
+                int newScene = SceneManager.GetActiveScene().buildIndex + 1;
+
+                // Calculate scoring
+                level_score = (Gold_Coins * 200) + (Apples * 30) + (Lemons * 50) + (Mushrooms * 69) + (Bananas * 15);
+                PlayerPrefs.SetInt("total_score", PlayerPrefs.GetInt("total_score") + level_score);
+
+                //Reset players collected items
+                PlayerPrefs.SetInt("Gold_Coins", 0);
+                PlayerPrefs.SetInt("Apples", 0);
+                PlayerPrefs.SetInt("Lemons", 0);
+                PlayerPrefs.SetInt("Mushrooms", 0);
+                PlayerPrefs.SetInt("Bananas", 0);
+                PlayerPrefs.SetInt("Keys_Collected", 0);
+
+                SceneManager.LoadScene(newScene);
+            }
+        }
+
+        else if (other.CompareTag("Respawn"))
+        {
+            
+            Debug.Log("RESPAWN");
+
+            //Reset players collected items
+            PlayerPrefs.SetInt("Gold_Coins", 0);
+            PlayerPrefs.SetInt("Apples", 0);
+            PlayerPrefs.SetInt("Lemons", 0);
+            PlayerPrefs.SetInt("Mushrooms", 0);
+            PlayerPrefs.SetInt("Bananas", 0);
+            PlayerPrefs.SetInt("Keys_Collected", 0);
+
+            //reload current level
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentScene);
+        }
 
     }
 }
