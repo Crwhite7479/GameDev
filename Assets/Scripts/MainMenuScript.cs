@@ -6,6 +6,7 @@ public class MainMenuScript : MonoBehaviour
 {
     public void StartGame()
     {
+        //Load new game at level 1 and reset all collectibles and scoring
         SceneManager.LoadScene(1);
         PlayerPrefs.SetInt("total_score", 0);
         PlayerPrefs.SetInt("Gold_Coins", 0);
@@ -14,6 +15,7 @@ public class MainMenuScript : MonoBehaviour
         PlayerPrefs.SetInt("Mushrooms", 0);
         PlayerPrefs.SetInt("Bananas", 0);
         PlayerPrefs.SetInt("Keys_Collected", 0);
+        PlayerPrefs.SetInt("timescore", 0);
 
     }
 

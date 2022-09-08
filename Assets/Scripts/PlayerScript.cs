@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
     CharacterController playerController;
 
+    // Collectibles counters
     public int Gold_Coins;
     public int Apples;
     public int Lemons;
@@ -14,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     public int Bananas;
     public int Keys_Collected;
 
+    // Collectibles score counting variables
     public int total_score;
     public int level_score;
 
@@ -54,15 +56,16 @@ public class PlayerScript : MonoBehaviour
         float forwardmove = Input.GetAxis("Vertical");
         direction = new Vector3(horizontalmove, 0, forwardmove);
 
+        // Jumping key
         if (Input.GetKey(KeyCode.Space))
         {
             if (is_Grounded)
             {
                 velocity.y = jumpHeight;
-            }
-            
+            }            
         }
 
+        // Grounding check and fall speed
         is_Grounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundLayerMask);
         if (!is_Grounded)
         {
@@ -92,6 +95,8 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // ALL item collection detections
+         
         if (other.CompareTag("PirateCoin"))
         {
             Gold_Coins++;
@@ -132,12 +137,11 @@ public class PlayerScript : MonoBehaviour
         {
             if (Keys_Collected > 0)
             {
-                Debug.Log("Level Complete");
-
+                // Load next scene in build order
                 int newScene = SceneManager.GetActiveScene().buildIndex + 1;
 
                 // Calculate scoring
-                level_score = (Gold_Coins * 200) + (Apples * 30) + (Lemons * 50) + (Mushrooms * 69) + (Bananas * 15);
+                level_score = (Gold_Coins * 200) + (Apples * 30) + (Lemons * 50) + (Mushrooms * 69) + (Bananas * 15) - (PlayerPrefs.GetInt("timescore"));
                 PlayerPrefs.SetInt("total_score", PlayerPrefs.GetInt("total_score") + level_score);
 
                 //Reset players collected items
@@ -147,6 +151,7 @@ public class PlayerScript : MonoBehaviour
                 PlayerPrefs.SetInt("Mushrooms", 0);
                 PlayerPrefs.SetInt("Bananas", 0);
                 PlayerPrefs.SetInt("Keys_Collected", 0);
+                PlayerPrefs.SetInt("timescore", 0);
 
                 SceneManager.LoadScene(newScene);
             }
@@ -164,8 +169,9 @@ public class PlayerScript : MonoBehaviour
             PlayerPrefs.SetInt("Mushrooms", 0);
             PlayerPrefs.SetInt("Bananas", 0);
             PlayerPrefs.SetInt("Keys_Collected", 0);
+            PlayerPrefs.SetInt("timescore", 0);
 
-            //reload current level
+            //Reload current level
             int currentScene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentScene);
         }
