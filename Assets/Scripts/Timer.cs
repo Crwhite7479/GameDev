@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     public float multiplier = 5;
     void Start()
     {
+        //Acivate timer on level start
         timerActive = true;
         currentTime = 0;
     }

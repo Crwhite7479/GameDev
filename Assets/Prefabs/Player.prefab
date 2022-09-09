@@ -66,7 +66,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold_Coins: 0
   Apples: 0
+  Lemons: 0
+  Mushrooms: 0
+  Bananas: 0
   Keys_Collected: 0
+  total_score: 0
+  level_score: 0
   camera: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
   moveSpeed: 6.5

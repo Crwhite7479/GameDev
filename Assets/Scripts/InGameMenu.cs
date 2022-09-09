@@ -61,9 +61,7 @@ public class InGameMenu : MonoBehaviour
     }
     public void Resumegame()
     {
-
         pausemenu.SetActive(false);
-
         Time.timeScale = 1;
     }
 

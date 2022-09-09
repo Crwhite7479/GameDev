@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     public int level_score;
 
     [SerializeField]
-    Transform camera;
+    new Transform camera;
 
     public Vector3 moveDir;
 

@@ -23,7 +23,6 @@ public class MainMenuScript : MonoBehaviour
     {
         Debug.Log("Application Quitting!!");
         Application.Quit();
-
     }
 }
 

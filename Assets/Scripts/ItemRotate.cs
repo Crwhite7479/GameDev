@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ItemRotate : MonoBehaviour
 {
-
+    // This is for the slow rotation of various pickup items
     void Start()
     {
         
     }
 
+    // Rotation speed
     [SerializeField] 
     float _degreesPerSec = 45f;
 
